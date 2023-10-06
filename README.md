@@ -15,11 +15,12 @@ The function `run_fastq_tool`is designed to select sequences that satisfy the gi
 
 The function returns a dictionary with a structure similar to the one passed, but containing only sequences that satisfy all conditions
 
-## Tool for working with DNA and RNA sequences
-the `run_dna_rna_tools` function allows you to perform various operations with RNA and DNA sequences
-The `run_dna_rna_tools` function takes as input an arbitrary number of arguments with DNA or RNA sequences, as well as the name of the procedure to be performed (the last argument). After this, the command performs the specified action on all transmitted sequences
-**List of procedures:**
+## Tool for working with nucleic acids sequences
+The `run_dna_rna_tools` is designed to perform various operations with RNA and DNA sequences.
 
+The `run_dna_rna_tools` function takes as input an arbitrary number of arguments with DNA or RNA sequences, as well as the name of the procedure to be performed (the last argument). After this, the command performs the specified action on all transmitted sequences
+
+**List of procedures:**
 - `transcribe` — print the transcribed sequence, accepts only DNA as input
 - `reverse` — print the reversed sequence
 - `complement` — print the complementary sequence
@@ -28,7 +29,7 @@ The `run_dna_rna_tools` function takes as input an arbitrary number of arguments
 - `mutate` — print a sequence with one random replacement. Any nucleotide is replaced with A, T, C, G if it is DNA, and with A, U, C, G if it is RNA. This preserves the register of the original sequence
 - `deletion` - prints a sequence with an arbitrary deletion if the sequence contains more than three nucleotides
 
-## Tool for working with nucleic acids sequences
+## Tool for working with amino acids sequences
 In the file `protein_tool.py ` contains the function `protein_tool'. It takes as input the name of the procedure and the sequence of amino acids, or two sequences, in the case of some procedures. This chair is designed for processing protein sequences.
 **List of procedures:**
 - `calculate_amino_acid_percentages` - calculation of the relative amino acid composition
