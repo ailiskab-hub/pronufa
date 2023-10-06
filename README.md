@@ -8,10 +8,10 @@ Pronufa contains following functions:
 
 ## Tool for working with fastq-sequences
 The function `run_fastq_tool`is designed to select sequences that satisfy the given conditions. The function takes the following arguments:
-- seqs: a dictionary consisting of fastq sequences with the following structure: key - string, sequence name, value - tuple of two strings: sequence and quality
-- gc_bounds: composition GC interval (in percent) for filtering. It can take a tuple of two values, or one number - the upper limit of the interval (by default it is equal to (0, 100), i.e. all reads are saved)
-- length_bounds: length interval for filtering. Can take a tuple of two values, or one number - the upper limit of the interval. Default is (0, 2* *32)
-- quality_threshold: threshold value of average read quality for filtering, default is 0 (phred33 scale). Reads with average quality across all nucleotides below the threshold are discarded.
+- `seqs`: a dictionary consisting of fastq sequences with the following structure: key - string, sequence name, value - tuple of two strings: sequence and quality
+- `gc_bounds`: composition GC interval (in percent) for filtering. It can take a tuple of two values, or one number - the upper limit of the interval (by default it is equal to (0, 100), i.e. all reads are saved)
+- `length_bounds`: length interval for filtering. Can take a tuple of two values, or one number - the upper limit of the interval. Default is (0, 2* *32)
+- `quality_threshold`: threshold value of average read quality for filtering, default is 0 (phred33 scale). Reads with average quality across all nucleotides below the threshold are discarded.
 
 The function returns a dictionary with a structure similar to the one passed, but containing only sequences that satisfy all conditions
 
@@ -30,7 +30,8 @@ The `run_dna_rna_tools` function takes as input an arbitrary number of arguments
 - `deletion` - prints a sequence with an arbitrary deletion if the sequence contains more than three nucleotides
 
 ## Tool for working with amino acids sequences
-In the file `protein_tool.py ` contains the function `protein_tool'. It takes as input the name of the procedure and the sequence of amino acids, or two sequences, in the case of some procedures. This chair is designed for processing protein sequences.
+The function `protein_tool' is designed to perform various operations with amino acid sequences. It takes as input the name of the procedure and the sequence of amino acids, or two sequences, in the case of some procedures.
+
 **List of procedures:**
 - `calculate_amino_acid_percentages` - calculation of the relative amino acid composition
 - `classify_amino_acid` - counting the relative number of amino acids by class
@@ -40,4 +41,4 @@ In the file `protein_tool.py ` contains the function `protein_tool'. It takes as
 - `get_occurrences` - find the number of occurrences in a sequence of another sequence, indexes and the number of occurrences
 - `count_variant_rna` - counting RNA variants that could encode a given sequence
 - `determine_total_protein_charge` - determination of the total charge of the protein
-- `calculate_pI` - calculation of the approximate isoelectric point
+- `calculate_pi` - calculation of the approximate isoelectric point
