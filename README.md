@@ -32,6 +32,7 @@ The `run_dna_rna_tools` function takes as input an arbitrary number of arguments
 ## Tool for working with amino acids sequences
 The function `protein_tool' is designed to perform various operations with amino acid sequences. It takes as input the name of the procedure and the sequence of amino acids, or two sequences, in the case of some procedures.
 
+
 **List of procedures:**
 - `calculate_amino_acid_percentages` - calculation of the relative amino acid composition
 - `classify_amino_acid` - counting the relative number of amino acids by class
@@ -42,3 +43,28 @@ The function `protein_tool' is designed to perform various operations with amino
 - `count_variant_rna` - counting RNA variants that could encode a given sequence
 - `determine_total_protein_charge` - determination of the total charge of the protein
 - `calculate_pi` - calculation of the approximate isoelectric point
+
+## Usage examples
+1. fastq-sequences selection
+``` python
+EXAMPLE_FASTQ = {'@SRX079804:1:SRR292678:1:1101:21885:21885': ('ACAGCAACATAAACATGATGGGATGGCGTAAGCCCCCGAGATATCAGTTTACCCAGGATAAGAGATTAAATTATGAGCAACATTATTAA', 'FGGGFGGGFGGGFGDFGCEBB@CCDFDDFFFFBFFGFGEFDFFFF;D@DD>C@DDGGGDFGDGG?GFGFEGFGGEF@FDGGGFGFBGGD'),
+    '@SRX079804:1:SRR292678:1:1101:24563:24563': ('ATTAGCGAGGAGGAGTGCTGAGAAGATGTCGCCTACGCCGTTGAAATTCCCTTCAATCAGGGGGTACTGGAGGATACGAGTTTGTGTG', 'BFFFFFFFB@B@A<@D>BDDACDDDEBEDEFFFBFFFEFFDFFF=CC@DDFD8FFFFFFF8/+.2,@7<<:?B/:<><-><@.A*C>D'),
+    '@SRX079804:1:SRR292678:1:1101:30161:30161': ('GAACGACAGCAGCTCCTGCATAACCGCGTCCTTCTTCTTTAGCGTTGTGCAAAGCATGTTTTGTATTACGGGCATCTCGAGCGAATC', 'DFFFEGDGGGGFGGEDCCDCEFFFFCCCCCB>CEBFGFBGGG?DE=:6@=>A<A>D?D8DCEE:>EEABE5D@5:DDCA;EEE-DCD')}
+run_fastq_tool(EXAMPLE_FASTQ, 55, (10,100), 32)
+# {'@SRX079804:1:SRR292678:1:1101:21885:21885': ('ACAGCAACATAAACATGATGGGATGGCGTAAGCCCCCGAGATATCAGTTTACCCAGGATAAGAGATTAAATTATGAGCAACATTATTAA', 'FGGGFGGGFGGGFGDFGCEBB@CCDFDDFFFFBFFGFGEFDFFFF;D@DD>C@DDGGGDFGDGG?GFGFEGFGGEF@FDGGGFGFBGGD'), '@SRX079804:1:SRR292678:1:1101:30161:30161': ('GAACGACAGCAGCTCCTGCATAACCGCGTCCTTCTTCTTTAGCGTTGTGCAAAGCATGTTTTGTATTACGGGCATCTCGAGCGAATC', 'DFFFEGDGGGGFGGEDCCDCEFFFFCCCCCB>CEBFGFBGGG?DE=:6@=>A<A>D?D8DCEE:>EEABE5D@5:DDCA;EEE-DCD')}
+```
+
+2. Processing nucleic acids sequences
+``` python
+run_dna_rna_tools('ATGccaT', 'reverse_complement') #AtggCAT
+run_dna_rna_tools('ATaaTCCGattG', 'transcribe') #AUaaUCCGauuG
+run_dna_rna_tools('AtCccTTG', 'mutate') #AtCtcTTG
+run_dna_rna_tools('AtCGgTTTTTTTTTTcTTAAg', 'deletion') #AtCGgTTTAg
+```
+3. Processing amino acid sequences
+``` python
+run_protein_tool('ASQGAMQR', 'counting_molecular_weight') # '847'
+run_protein_tool('TKKKKTDDDA', 'calculate_pI') # '7.225555555555555'
+run_protein_tool('TATAQQQWRVVTDDDA', 'count_variant_rna') # '25165824'
+run_protein_tool('ASQRGARWQRMQR', 'QR', 'get_occurrences') # 'Number of occurrences: 3; indexes: 3, 9, 12'
+```
