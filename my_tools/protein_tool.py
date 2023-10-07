@@ -29,57 +29,55 @@ DICT_MOLECULAR_MASS = {
     'M': 149, 'N': 132, 'Q': 146, 'D': 133, 'E': 147, 'K': 146,
     'R': 174, 'H': 155
 }
+AMINO_ACID_COUNTS = {'acidic': 0, 'non_charged': 0, 'basic': 0}
+AA_CLASSIFICATION = {'acidic': ['D', 'E'],
+                     'non_charged': ['A', 'N', 'C', 'Q', 'G', 'I', 'L', 'M', 'F', 'P', 'S', 'T', 'W', 'Y', 'V'],
+                     'basic': ['H', 'R', 'K']}
 
 
 def calculate_amino_acid_percentages(seq: str) -> str:
-    pass
-#     """
-#     Calculating the percentage of amino acids in protein.
-#
-#     Arguments:
-#     - seq (str): amino acid sequence. The input must be uppercased and use the single letter amino acid code.
-#
-#     Returns:
-#     - output (str): percentage of amino acids in protein in descending order.
-#     """
-#     aa_count = {}  # counting amino acids in sequence
-#     for amino_acid in seq:
-#         if amino_acid in aa_count:
-#             aa_count[amino_acid] += 1
-#         else:
-#             aa_count[amino_acid] = 1
-#     composition_rates = {}
-#     for aa in aa_count:
-#         composition_rates[aa] = aa_count[aa] / len(seq) * 100
-#     output = ', '.join([f'{key}: {round(value, 2)}' for key, value in sorted(composition_rates.items(),
-#                                                                              key=lambda item: -item[1])])
-#     return output
+    """
+    Calculating the percentage of amino acids in protein.
+
+    Arguments:
+    - seq (str): amino acid sequence. The input must be uppercase and use the single letter amino acid code.
+
+    Returns:
+    - output (str): percentage of amino acids in protein in descending order.
+    """
+    aa_count = {}  # counting amino acids in sequence
+    protein_length = len(seq)
+    for amino_acid in seq:
+        if amino_acid in aa_count:
+            aa_count[amino_acid] += 1
+        else:
+            aa_count[amino_acid] = 1
+    composition_rates = {}
+    for aa in aa_count:
+        composition_rates[aa] = aa_count[aa] / protein_length * 100
+    output = ', '.join([f'{key}: {round(value, 2)}' for key, value in sorted(composition_rates.items(),
+                                                                             key=lambda item: -item[1])])
+    return output
 
 
 def classify_amino_acid(seq: str) -> str:
-    pass
-#     """
-#     Determine the percentage of acidic, basic and neutral amino acids in protein.
-#
-#     Arguments:
-#     - seq (str): amino acid sequence. The input must be uppercased and use the single letter amino acid code.
-#
-#     Returns
-#     - output (str): percentage of neutral, acidic and basic amino acids in protein.
-#     """
-#     amino_acid_counts = {'acidic': 0, 'neutral': 0, 'basic': 0}
-#     for amino_acid in seq:
-#         if amino_acid in ['D', 'E']:
-#             amino_acid_counts['acidic'] += 1
-#         elif amino_acid in ['A', 'N', 'C', 'Q', 'G', 'I', 'L', 'M', 'F', 'P', 'S', 'T', 'W', 'Y', 'V']:
-#             amino_acid_counts['neutral'] += 1
-#         elif amino_acid in ['H', 'R', 'K']:
-#             amino_acid_counts['basic'] += 1
-#     acidic_percentage = round(amino_acid_counts['acidic'] / len(seq) * 100, 2)
-#     neutral_percentage = round(amino_acid_counts['neutral'] / len(seq) * 100, 2)
-#     basic_percentage = round(amino_acid_counts['basic'] / len(seq) * 100, 2)
-#     output = f'neutral: {neutral_percentage}, acidic: {acidic_percentage}, basic: {basic_percentage}'
-#     return output
+    """
+    Determine the percentage of acidic, basic and neutral amino acids in protein.
+
+    Arguments:
+    - seq (str): amino acid sequence. The input must be uppercase and use the single letter amino acid code.
+
+    Returns
+    - output (str): percentage of neutral, acidic and basic amino acids in protein.
+    """
+    for i in seq:
+        key = [key for key, value in AA_CLASSIFICATION.items() if i in value]
+        AMINO_ACID_COUNTS[key[0]] += 1
+    acidic_percentage = round(AMINO_ACID_COUNTS['acidic'] / len(seq) * 100, 2)
+    non_charged_percentage = round(AMINO_ACID_COUNTS['non_charged'] / len(seq) * 100, 2)
+    basic_percentage = round(AMINO_ACID_COUNTS['basic'] / len(seq) * 100, 2)
+    output = f'non_charged: {non_charged_percentage}, acidic: {acidic_percentage}, basic: {basic_percentage}'
+    return output
 
 
 def counting_point_mutations(seq1: str, seq2: str) -> int:
@@ -139,33 +137,32 @@ def get_occurrences(seq1: str, seq2: str) -> str:
 
 
 def find_amino_acid_indices(seq: str, amino_acid: str) -> str:
-    pass
-#     """
-#     Finds the amino acid indices specified in the input.
-#
-#     Arguments:
-#     - seq (str): amino acid sequence. The input must be uppercased and use the single letter amino acid code.
-#     - amino_acid (str): amino acid for which indices need to be found.
-#
-#     Returns:
-#     - output (str): all found indices in the protein for which the entered amino acid corresponds to.
-#     """
-#     indices = []
-#     if amino_acid not in seq:
-#         raise ValueError('Amino acid not found')
-#     for index, aa in enumerate(seq):
-#         if aa == amino_acid:
-#             indices.append(index + 1)
-#     output = ', '.join(str(i) for i in indices)
-#     return output
+    """
+    Finds the amino acid indices specified in the input.
+
+    Arguments:
+    - seq (str): amino acid sequence. The input must be uppercase and use the single letter amino acid code.
+    - amino_acid (str): amino acid for which indices need to be found.
+
+    Returns:
+    - output (str): all found indices in the protein for which the entered amino acid corresponds to.
+    """
+    indices = []
+    if amino_acid not in seq:
+        raise ValueError('Amino acid not found')
+    for index, aa in enumerate(seq):
+        if aa == amino_acid:
+            indices.append(index + 1)
+    output = ', '.join(str(i) for i in indices)
+    return output
 
 
 def count_variant_rna(seq: str) -> int:
     """
-    Сounts the number of RNAs that can be a template for the synthesis of the entered sequence
+    Counting number of RNAs that can be a template for the synthesis of the entered sequence
 
     Arguments:
-    - seq (str): amino acid sequence. The input must be uppercased and use the single letter amino acid code
+    - seq (str): amino acid sequence. The input must be uppercase and use the single letter amino acid code
 
     Returns:
     - output (int): number of RNAs that can be a template for the synthesis of the entered sequence
@@ -181,7 +178,7 @@ def determine_total_protein_charge(seq) -> str:
     Determine whether the protein has positive, negative or neutral charge in neutral pH
 
     Arguments:
-    - seq (str): amino acid sequence. The input must be uppercased and use the single letter amino acid code
+    - seq (str): amino acid sequence. The input must be uppercase and use the single letter amino acid code
 
     Returns:
     - output (str): positive, negative or neutral charge of protein in neutral pH
@@ -200,7 +197,7 @@ def calculate_pi(seq: str) -> float:
     Calculation pI of the protein in neutral pH
 
     Arguments:
-    - seq (str): amino acid sequence. The input must be uppercased and use the single letter amino acid code
+    - seq (str): amino acid sequence. The input must be uppercase and use the single letter amino acid code
 
     Returns:
     - output (float): approximate value of the pI of the protein in neutral pH
@@ -226,7 +223,7 @@ def is_protein(seq: str) -> bool:
     Check whether the transmitted sequence consists of amino acids
 
     Arguments:
-    - seq (str): amino acid sequence. The input must be uppercased and use the single letter amino acid code
+    - seq (str): amino acid sequence. The input must be uppercase and use the single letter amino acid code
     - aa_set(set): all amino acid that we use. May be replaced with extra amino acids or it's modifications.
     But other functions are not intended to work with unusual amino acids
 
@@ -245,49 +242,3 @@ commands = {'calculate_amino_acid_percentages': calculate_amino_acid_percentages
             'count_variant_rna': count_variant_rna,
             'determine_total_protein_charge': determine_total_protein_charge,
             'calculate_pi': calculate_pi}
-# def protein_tool(*args: str) -> str:
-#     """
-#     Main function that is used to get sequence(s) and command. It performs a given action with the entered sequence
-#
-#     Arguments:
-#     - args (str): amino acid sequence(s) and command.
-#     The input must use the single letter amino acid code
-#     The last element of the string must be the command
-#
-#     Returns:
-#     - result (str): the result of a given sequence processing
-#     """
-#
-#     *sequences, action = args
-#     sequences = [seq.upper() for seq in sequences]
-#     commands = {'calculate_amino_acid_percentages': calculate_amino_acid_percentages,
-#                 'classify_amino_acid': classify_amino_acid,
-#                 'find_amino_acid_indices': find_amino_acid_indices,
-#                 'counting_point_mutations': counting_point_mutations,
-#                 'counting_molecular_weight': counting_molecular_weight,
-#                 'get_occurrences': get_occurrences,
-#                 'count_variant_rna': count_variant_rna,
-#                 'determine_total_protein_charge': determine_total_protein_charge,
-#                 'calculate_pI': calculate_pI}
-#     command = commands[action]
-#     for seq in sequences:
-#         if not is_protein(seq):
-#             print('Sequence is not protein', file=sys.stderr)
-#             sys.exit(1)
-#
-#     return str(command(sequences[0], sequences[1])) if len(sequences) == 2 else str(command(sequences[0]))
-
-# Проверка
-# c = ['calculate_amino_acid_percentages', 'classify_amino_acid', 'find_amino_acid_indices', 'counting_point_mutations',
-#      'counting_molecular_weight', 'get_occurrences', 'count_variant_rna', 'determine_total_protein_charge',
-#      'calculate_pI']
-#
-# for com in c:
-#     try:
-#         print(com, protein_tool('ASQRGARWQRMQR', 'ASQRGARWARMQR', com))
-#     except:
-#         try:
-#             print(com, protein_tool('ASQRGARWQRMQR', 'A', com))
-#
-#         except:
-#             print(com, protein_tool('ASQRGARWQRMQR', com))
