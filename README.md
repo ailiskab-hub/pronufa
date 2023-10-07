@@ -41,6 +41,8 @@ The `run_dna_rna_tools` function takes as input an arbitrary number of arguments
 - `mutate` — print a sequence with one random replacement. Any nucleotide is replaced with A, T, C, G if it is DNA, and with A, U, C, G if it is RNA. This preserves the register of the original sequence
 - `deletion` - prints a sequence with an arbitrary deletion if the sequence contains more than three nucleotides
 
+*You can check more detailed description [here](https://github.com/Python-BI-2023/hw3-functions-ailiskab-hub/blob/main/README.md)*
+
 ## Tool for working with amino acids sequences
 The function `protein_tool' is designed to perform various operations with amino acid sequences. It takes as input the name of the procedure and the sequence of amino acids, or two sequences, in the case of some procedures.
 
@@ -55,6 +57,8 @@ The function `protein_tool' is designed to perform various operations with amino
 - `count_variant_rna` - counting RNA variants that could encode a given sequence
 - `determine_total_protein_charge` - determination of the total charge of the protein
 - `calculate_pi` - calculation of the approximate isoelectric point
+
+*You can check more detailed description [here](https://github.com/ailiskab-hub/HW4_Functions2/blob/HW4_Kabalina/README.md)*
 
 ## Usage examples
 1. fastq-sequences selection
