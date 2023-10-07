@@ -1,5 +1,13 @@
 # Pronufa
-## Brief description 
+## Table of contents
+  * [Brief description](#description)
+  * [The structure of repository](#structure)
+  * [Tool for working with fastq-sequences](#fastq)
+  * [Tool for working with nucleic acids sequences](#na)
+  * [Tool for working with amino acids sequences](#aa)
+  * [Usage examples](#example)
+
+## Brief description <a name="description"></a>
 Pronufa (*Protein, nucleic, fastq*) - tool for dealing with fastq sequences and proteins or nucleic acids sequenses
 Pronufa contains following functions:
 - `run_fastq_tool`: tool for selection sequences
@@ -9,7 +17,7 @@ Pronufa contains following functions:
 **✧･ﾟ: ✧･ﾟ: ✧･ﾟ: ✧･ﾟ: ✧･ﾟ: ✧･ﾟ: ✧･ﾟ: ✧･ﾟ: ✧･ﾟ: ✧･ﾟ: ✧･ﾟ: ✧･ﾟ: ✧･ﾟ: ✧･ﾟ: ✧･ﾟ: ✧･ﾟ: ✧･ﾟ: ✧･ﾟ: ✧･ﾟ: ✧･ﾟ: ✧･ﾟ: ✧･ﾟ: ✧･ﾟ: ✧･ﾟ: ✧･ﾟ: ✧･ﾟ: ✧･ﾟ: ✧･ﾟ: ✧･ﾟ: ✧･ﾟ:**
 
 
-## The structure of repository
+## The structure of repository <a name="structure"></a>
 Directiry `my_tools` contains files `dna_rna_tools.py`,  `fastq_tool.py`,  `protein_tool.py` with some functions which are required for correct operation of functions described above.
 ``` python
 -/
@@ -22,7 +30,7 @@ Directiry `my_tools` contains files `dna_rna_tools.py`,  `fastq_tool.py`,  `prot
 ```
 **✧･ﾟ: ✧･ﾟ: ✧･ﾟ: ✧･ﾟ: ✧･ﾟ: ✧･ﾟ: ✧･ﾟ: ✧･ﾟ: ✧･ﾟ: ✧･ﾟ: ✧･ﾟ: ✧･ﾟ: ✧･ﾟ: ✧･ﾟ: ✧･ﾟ: ✧･ﾟ: ✧･ﾟ: ✧･ﾟ: ✧･ﾟ: ✧･ﾟ: ✧･ﾟ: ✧･ﾟ: ✧･ﾟ: ✧･ﾟ: ✧･ﾟ: ✧･ﾟ: ✧･ﾟ: ✧･ﾟ: ✧･ﾟ: ✧･ﾟ:**
 
-## Tool for working with fastq-sequences
+## Tool for working with fastq-sequences <a name="fastq"></a>
 The function `run_fastq_tool`is designed to select sequences that satisfy the given conditions. The function takes the following arguments:
 - `seqs`: a dictionary consisting of fastq sequences with the following structure: key - string, sequence name, value - tuple of two strings: sequence and quality
 - `gc_bounds`: composition GC interval (in percent) for filtering. It can take a tuple of two values, or one number - the upper limit of the interval (by default it is equal to (0, 100), i.e. all reads are saved)
@@ -33,7 +41,7 @@ The function returns a dictionary with a structure similar to the one passed, bu
 
 **✧･ﾟ: ✧･ﾟ: ✧･ﾟ: ✧･ﾟ: ✧･ﾟ: ✧･ﾟ: ✧･ﾟ: ✧･ﾟ: ✧･ﾟ: ✧･ﾟ: ✧･ﾟ: ✧･ﾟ: ✧･ﾟ: ✧･ﾟ: ✧･ﾟ: ✧･ﾟ: ✧･ﾟ: ✧･ﾟ: ✧･ﾟ: ✧･ﾟ: ✧･ﾟ: ✧･ﾟ: ✧･ﾟ: ✧･ﾟ: ✧･ﾟ: ✧･ﾟ: ✧･ﾟ: ✧･ﾟ: ✧･ﾟ: ✧･ﾟ:**
 
-## Tool for working with nucleic acids sequences
+## Tool for working with nucleic acids sequences <a name="na"></a>
 The `run_dna_rna_tools` is designed to perform various operations with RNA and DNA sequences.
 
 The `run_dna_rna_tools` function takes as input an arbitrary number of arguments with DNA or RNA sequences, as well as the name of the procedure to be performed (the last argument). After this, the command performs the specified action on all transmitted sequences
@@ -49,7 +57,7 @@ The `run_dna_rna_tools` function takes as input an arbitrary number of arguments
 
 **✧･ﾟ: ✧･ﾟ: ✧･ﾟ: ✧･ﾟ: ✧･ﾟ: ✧･ﾟ: ✧･ﾟ: ✧･ﾟ: ✧･ﾟ: ✧･ﾟ: ✧･ﾟ: ✧･ﾟ: ✧･ﾟ: ✧･ﾟ: ✧･ﾟ: ✧･ﾟ: ✧･ﾟ: ✧･ﾟ: ✧･ﾟ: ✧･ﾟ: ✧･ﾟ: ✧･ﾟ: ✧･ﾟ: ✧･ﾟ: ✧･ﾟ: ✧･ﾟ: ✧･ﾟ: ✧･ﾟ: ✧･ﾟ: ✧･ﾟ:**
 
-## Tool for working with amino acids sequences
+## Tool for working with amino acids sequences <a name="aa"></a>
 The function `protein_tool' is designed to perform various operations with amino acid sequences. It takes as input the name of the procedure and the sequence of amino acids, or two sequences, in the case of some procedures.
 
 
@@ -66,7 +74,7 @@ The function `protein_tool' is designed to perform various operations with amino
   
 **✧･ﾟ: ✧･ﾟ: ✧･ﾟ: ✧･ﾟ: ✧･ﾟ: ✧･ﾟ: ✧･ﾟ: ✧･ﾟ: ✧･ﾟ: ✧･ﾟ: ✧･ﾟ: ✧･ﾟ: ✧･ﾟ: ✧･ﾟ: ✧･ﾟ: ✧･ﾟ: ✧･ﾟ: ✧･ﾟ: ✧･ﾟ: ✧･ﾟ: ✧･ﾟ: ✧･ﾟ: ✧･ﾟ: ✧･ﾟ: ✧･ﾟ: ✧･ﾟ: ✧･ﾟ: ✧･ﾟ: ✧･ﾟ: ✧･ﾟ:**
   
-## Usage examples
+## Usage examples <a name="example"></a>
 1. fastq-sequences selection
 ``` python
 EXAMPLE_FASTQ = {'@SRX079804:1:SRR292678:1:1101:21885:21885': ('ACAGCAACATAAACATGATGGGATGGCGTAAGCCCCCGAGATATCAGTTTACCCAGGATAAGAGATTAAATTATGAGCAACATTATTAA', 'FGGGFGGGFGGGFGDFGCEBB@CCDFDDFFFFBFFGFGEFDFFFF;D@DD>C@DDGGGDFGDGG?GFGFEGFGGEF@FDGGGFGFBGGD'),
