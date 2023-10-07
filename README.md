@@ -6,6 +6,18 @@ Pronufa contains following functions:
 - `run_dna_rna_tools`: tool for processing DNA and RNA sequences
 - `run_protein_tool`: tool for processing amini acid sequences
 
+Directiry `my_tools` contains files ` dna_rna_tools.py`,  `fastq_tool.py`,  `protein_tool.py` with some functions which are required for correct operation of functions described above.
+## The structure of repository
+``` python
+-/
+ |- pronufa.py # (impots and 3 functions)
+ |- README.md
+ |- my_tools/
+       |- dna_rna_tools.py
+       |- protein_tool.py
+       |- fastq_tool.py
+```
+
 ## Tool for working with fastq-sequences
 The function `run_fastq_tool`is designed to select sequences that satisfy the given conditions. The function takes the following arguments:
 - `seqs`: a dictionary consisting of fastq sequences with the following structure: key - string, sequence name, value - tuple of two strings: sequence and quality
