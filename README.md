@@ -1,13 +1,16 @@
 # Pronufa
-## Brief description
+## Brief description 
 Pronufa (*Protein, nucleic, fastq*) - tool for dealing with fastq sequences and proteins or nucleic acids sequenses
 Pronufa contains following functions:
 - `run_fastq_tool`: tool for selection sequences
 - `run_dna_rna_tools`: tool for processing DNA and RNA sequences
 - `run_protein_tool`: tool for processing amini acid sequences
 
-Directiry `my_tools` contains files `dna_rna_tools.py`,  `fastq_tool.py`,  `protein_tool.py` with some functions which are required for correct operation of functions described above.
+**✧･ﾟ: ✧･ﾟ: ✧･ﾟ: ✧･ﾟ: ✧･ﾟ: ✧･ﾟ: ✧･ﾟ: ✧･ﾟ: ✧･ﾟ: ✧･ﾟ: ✧･ﾟ: ✧･ﾟ: ✧･ﾟ: ✧･ﾟ: ✧･ﾟ: ✧･ﾟ: ✧･ﾟ: ✧･ﾟ: ✧･ﾟ: ✧･ﾟ: ✧･ﾟ: ✧･ﾟ: ✧･ﾟ: ✧･ﾟ: ✧･ﾟ: ✧･ﾟ: ✧･ﾟ: ✧･ﾟ: ✧･ﾟ: ✧･ﾟ:**
+
+
 ## The structure of repository
+Directiry `my_tools` contains files `dna_rna_tools.py`,  `fastq_tool.py`,  `protein_tool.py` with some functions which are required for correct operation of functions described above.
 ``` python
 -/
  |- pronufa.py # (impots and 3 functions)
@@ -17,6 +20,7 @@ Directiry `my_tools` contains files `dna_rna_tools.py`,  `fastq_tool.py`,  `prot
        |- protein_tool.py
        |- fastq_tool.py
 ```
+**✧･ﾟ: ✧･ﾟ: ✧･ﾟ: ✧･ﾟ: ✧･ﾟ: ✧･ﾟ: ✧･ﾟ: ✧･ﾟ: ✧･ﾟ: ✧･ﾟ: ✧･ﾟ: ✧･ﾟ: ✧･ﾟ: ✧･ﾟ: ✧･ﾟ: ✧･ﾟ: ✧･ﾟ: ✧･ﾟ: ✧･ﾟ: ✧･ﾟ: ✧･ﾟ: ✧･ﾟ: ✧･ﾟ: ✧･ﾟ: ✧･ﾟ: ✧･ﾟ: ✧･ﾟ: ✧･ﾟ: ✧･ﾟ: ✧･ﾟ:**
 
 ## Tool for working with fastq-sequences
 The function `run_fastq_tool`is designed to select sequences that satisfy the given conditions. The function takes the following arguments:
@@ -26,6 +30,8 @@ The function `run_fastq_tool`is designed to select sequences that satisfy the gi
 - `quality_threshold`: threshold value of average read quality for filtering, default is 0 (phred33 scale). Reads with average quality across all nucleotides below the threshold are discarded.
 
 The function returns a dictionary with a structure similar to the one passed, but containing only sequences that satisfy all conditions
+
+**✧･ﾟ: ✧･ﾟ: ✧･ﾟ: ✧･ﾟ: ✧･ﾟ: ✧･ﾟ: ✧･ﾟ: ✧･ﾟ: ✧･ﾟ: ✧･ﾟ: ✧･ﾟ: ✧･ﾟ: ✧･ﾟ: ✧･ﾟ: ✧･ﾟ: ✧･ﾟ: ✧･ﾟ: ✧･ﾟ: ✧･ﾟ: ✧･ﾟ: ✧･ﾟ: ✧･ﾟ: ✧･ﾟ: ✧･ﾟ: ✧･ﾟ: ✧･ﾟ: ✧･ﾟ: ✧･ﾟ: ✧･ﾟ: ✧･ﾟ:**
 
 ## Tool for working with nucleic acids sequences
 The `run_dna_rna_tools` is designed to perform various operations with RNA and DNA sequences.
@@ -41,6 +47,8 @@ The `run_dna_rna_tools` function takes as input an arbitrary number of arguments
 - `mutate` — print a sequence with one random replacement. Any nucleotide is replaced with A, T, C, G if it is DNA, and with A, U, C, G if it is RNA. This preserves the register of the original sequence
 - `deletion` - prints a sequence with an arbitrary deletion if the sequence contains more than three nucleotides
 
+**✧･ﾟ: ✧･ﾟ: ✧･ﾟ: ✧･ﾟ: ✧･ﾟ: ✧･ﾟ: ✧･ﾟ: ✧･ﾟ: ✧･ﾟ: ✧･ﾟ: ✧･ﾟ: ✧･ﾟ: ✧･ﾟ: ✧･ﾟ: ✧･ﾟ: ✧･ﾟ: ✧･ﾟ: ✧･ﾟ: ✧･ﾟ: ✧･ﾟ: ✧･ﾟ: ✧･ﾟ: ✧･ﾟ: ✧･ﾟ: ✧･ﾟ: ✧･ﾟ: ✧･ﾟ: ✧･ﾟ: ✧･ﾟ: ✧･ﾟ:**
+
 ## Tool for working with amino acids sequences
 The function `protein_tool' is designed to perform various operations with amino acid sequences. It takes as input the name of the procedure and the sequence of amino acids, or two sequences, in the case of some procedures.
 
@@ -55,7 +63,9 @@ The function `protein_tool' is designed to perform various operations with amino
 - `count_variant_rna` - counting RNA variants that could encode a given sequence
 - `determine_total_protein_charge` - determination of the total charge of the protein
 - `calculate_pi` - calculation of the approximate isoelectric point
-
+  
+**✧･ﾟ: ✧･ﾟ: ✧･ﾟ: ✧･ﾟ: ✧･ﾟ: ✧･ﾟ: ✧･ﾟ: ✧･ﾟ: ✧･ﾟ: ✧･ﾟ: ✧･ﾟ: ✧･ﾟ: ✧･ﾟ: ✧･ﾟ: ✧･ﾟ: ✧･ﾟ: ✧･ﾟ: ✧･ﾟ: ✧･ﾟ: ✧･ﾟ: ✧･ﾟ: ✧･ﾟ: ✧･ﾟ: ✧･ﾟ: ✧･ﾟ: ✧･ﾟ: ✧･ﾟ: ✧･ﾟ: ✧･ﾟ: ✧･ﾟ:**
+  
 ## Usage examples
 1. fastq-sequences selection
 ``` python
