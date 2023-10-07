@@ -6,7 +6,7 @@ Pronufa contains following functions:
 - `run_dna_rna_tools`: tool for processing DNA and RNA sequences
 - `run_protein_tool`: tool for processing amini acid sequences
 
-Directiry `my_tools` contains files ` dna_rna_tools.py`,  `fastq_tool.py`,  `protein_tool.py` with some functions which are required for correct operation of functions described above.
+Directiry `my_tools` contains files `dna_rna_tools.py`,  `fastq_tool.py`,  `protein_tool.py` with some functions which are required for correct operation of functions described above.
 ## The structure of repository
 ``` python
 -/
