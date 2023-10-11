@@ -1,24 +1,30 @@
 from my_tools import dna_rna_tools as na
 from my_tools import fastq_tool as fq
 from my_tools import protein_tool as pt
-from typing import Tuple, Dict
+from typing import Tuple, Dict, NoReturn
 import sys
+import re
+
+PATTERN_TO_NAME = r'(?<=/)\w+(?=\.fastq)'
 
 
-def run_fastq_tool(seqs: Dict[str, Tuple[str, str]], gc_bounds: Tuple[int, int] = (0, 100),
-                   length_bounds: Tuple[int, int] = (0, 2 ** 32), quality_threshold: int = 0) -> Dict[str, Tuple[str, str]]:
+def run_fastq_tool(input_path: str, gc_bounds: Tuple[int, int] = (0, 100),
+                   length_bounds: Tuple[int, int] = (0, 2 ** 32), quality_threshold: int = 0,
+                   output_filename: str = None) -> NoReturn:
     """
     Main function that is used to select sequences that satisfy the conditions
 
     Arguments:
-    - seqs (Dict[str, Tuple[str, str]]): a dictionary consisting of fastq sequences
+    - input_path (str): the path to the file with fastq sequences
     - gc_bounds (Tuple[int, str] or int): composition GC interval or upper limit (in percent)
     - length_bounds (Tuple[int, str] or int): length interval for filtering
     - quality_threshold (int): threshold value of average read quality for filtering
-
-    Returns:
-    - selected_seqs (Dict[str, Tuple[str, str]]): selected sequences that satisfy the conditions
+    - output_filename (str): name of output file with
     """
+    names, seqs, comments, qualities = fq.read_file(input_path)
+
+    number_of_sequence = len(names)
+
     selected_seqs = {}
     try:
         min_gc, max_gc = gc_bounds
@@ -30,14 +36,21 @@ def run_fastq_tool(seqs: Dict[str, Tuple[str, str]], gc_bounds: Tuple[int, int] 
     except TypeError:
         min_length = 0
         max_length = length_bounds
-    for name, content in seqs.items():
-        seq, q_seq = content
+
+    for index in range(number_of_sequence):
+        name = names[index]
+        seq = seqs[index]
+        comment = comments[index]
+        q_seq = qualities[index]
         length = len(seq)
         mean_quality = fq.count_quality(q_seq) / length
         if fq.check_length(min_length, length, max_length) and fq.count_check_gc(seq, min_gc, max_gc, length):
             if mean_quality >= quality_threshold:
-                selected_seqs[name] = content
-    return selected_seqs
+                selected_seqs[name] = (seq, comment, q_seq)
+
+    if not output_filename:
+        output_filename = re.search(PATTERN_TO_NAME, input_path)[0]
+    fq.write_file(selected_seqs, output_filename)
 
 
 def run_dna_rna_tools(*args: str) -> str or list[str]:
