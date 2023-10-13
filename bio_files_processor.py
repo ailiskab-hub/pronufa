@@ -77,7 +77,7 @@ def get_gene_and_translation(lines: List[str]) -> Tuple[Dict[str, str], Dict[str
 
 
 def select_genes_from_gbk_to_fasta(input_gbk: str, genes: List[str], n_before: int = 1, n_after: int = 1,
-                                   output_fasta: str = None):
+                                   output_fasta: str = None) -> NoReturn:
     """
     Extracts specific genes and their translations from a GenBank (GBK) file and saves them in a FASTA file.
 
@@ -117,7 +117,7 @@ def select_genes_from_gbk_to_fasta(input_gbk: str, genes: List[str], n_before: i
             new_file.write(gene_translation.get(interesting_gene) + END)
 
 
-def change_fasta_start_pos(input_fasta: str, shift: int, output_fasta: str = None):
+def change_fasta_start_pos(input_fasta: str, shift: int, output_fasta: str = None) -> NoReturn:
     """
     Shifts the starting position of sequences in a FASTA file and saves the modified sequences to a new FASTA file.
 
