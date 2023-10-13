@@ -1,13 +1,25 @@
 # Pronufa
+There are two files `pronufa.py` and `bio_files_processor.py`
+
 ## Table of contents
-  * [Brief description](#description)
+  * [Brief description of the bio_files_processor.py](#description_1)
+  * [Brief description of the pronufa.py](#description_2)
   * [The structure of repository](#structure)
   * [Tool for working with fastq-sequences](#fastq)
   * [Tool for working with nucleic acids sequences](#na)
   * [Tool for working with amino acids sequences](#aa)
   * [Usage examples](#example)
 
-## Brief description <a name="description"></a>
+## Brief description of the bio_files_processor.py <a name="description_1"></a>
+Bio_files_processor - tool for working with files
+Bio_files_processor contains following functions:
+- `convert_multiline_fasta_to_oneline`: Converts a multiline format FASTA file to a single-line format and saves it to a new FASTA file
+- `get_gene_and_translation`: Extracts gene names and their corresponding translations from a list of lines containing gene information
+- `select_genes_from_gbk_to_fasta`: Extracts neighbours to specific genes and their translations from a GenBank (GBK) file and saves them in a FASTA file
+- `change_fasta_start_pos`: Shifts the starting position of sequences in a FASTA file and saves the modified sequences to a new FASTA file
+- `parse_blast_output`: Parses a BLAST output file to extract and sort information about proteins
+
+## Brief description of the pronufa.py <a name="description_2"></a>
 Pronufa (*Protein, nucleic, fastq*) - tool for dealing with fastq sequences and proteins or nucleic acids sequenses
 Pronufa contains following functions:
 - `run_fastq_tool`: tool for selection sequences
@@ -22,24 +34,26 @@ Directiry `my_tools` contains files `dna_rna_tools.py`,  `fastq_tool.py`,  `prot
 ``` python
 -/
  |- pronufa.py # (impots and 3 functions)
+ |- bio_files_processor.py
  |- README.md
  |- my_tools/
        |- dna_rna_tools.py
        |- protein_tool.py
        |- fastq_tool.py
 ```
-**✧･ﾟ: ✧･ﾟ: ✧･ﾟ: ✧･ﾟ: ✧･ﾟ: ✧･ﾟ: ✧･ﾟ: ✧･ﾟ: ✧･ﾟ: ✧･ﾟ: ✧･ﾟ: ✧･ﾟ: ✧･ﾟ: ✧･ﾟ: ✧･ﾟ: ✧･ﾟ: ✧･ﾟ: ✧･ﾟ: ✧･ﾟ: ✧･ﾟ: ✧･ﾟ: ✧･ﾟ: ✧･ﾟ: ✧･ﾟ: ✧･ﾟ: ✧･ﾟ: ✧･ﾟ: ✧･ﾟ: ✧･ﾟ: ✧･ﾟ:**
+**✧･ﾟ: ✧･ﾟ: ✧･ﾟ: ✧･ﾟ: ✧･ﾟ: ✧･ﾟ: ✧･ﾟ: ✧･ﾟ: ✧･ﾟ: ✧･ﾟ: ✧･ﾟ: ✧･ﾟ: ✧･ﾟ: ✧･ﾟ: ✧･ﾟ: ✧･ﾟ: ✧･ﾟ: ✧･ﾟ: ✧･ﾟ:**
 
 ## Tool for working with fastq-sequences <a name="fastq"></a>
 The function `run_fastq_tool`is designed to select sequences that satisfy the given conditions. The function takes the following arguments:
-- `seqs`: a dictionary consisting of fastq sequences with the following structure: key - string, sequence name, value - tuple of two strings: sequence and quality
+-  `input_path`: the path to the file with fastq sequences
 - `gc_bounds`: composition GC interval (in percent) for filtering. It can take a tuple of two values, or one number - the upper limit of the interval (by default it is equal to (0, 100), i.e. all reads are saved)
 - `length_bounds`: length interval for filtering. Can take a tuple of two values, or one number - the upper limit of the interval. Default is (0, 2* *32)
 - `quality_threshold`: threshold value of average read quality for filtering, default is 0 (phred33 scale). Reads with average quality across all nucleotides below the threshold are discarded.
+- `output_filename`: name of output file
 
-The function returns a dictionary with a structure similar to the one passed, but containing only sequences that satisfy all conditions
+The function write sequences that satisfy all conditions to the file
 
-**✧･ﾟ: ✧･ﾟ: ✧･ﾟ: ✧･ﾟ: ✧･ﾟ: ✧･ﾟ: ✧･ﾟ: ✧･ﾟ: ✧･ﾟ: ✧･ﾟ: ✧･ﾟ: ✧･ﾟ: ✧･ﾟ: ✧･ﾟ: ✧･ﾟ: ✧･ﾟ: ✧･ﾟ: ✧･ﾟ: ✧･ﾟ: ✧･ﾟ: ✧･ﾟ: ✧･ﾟ: ✧･ﾟ: ✧･ﾟ: ✧･ﾟ: ✧･ﾟ: ✧･ﾟ: ✧･ﾟ: ✧･ﾟ: ✧･ﾟ:**
+**✧･ﾟ: ✧･ﾟ: ✧･ﾟ: ✧･ﾟ: ✧･ﾟ: ✧･ﾟ: ✧･ﾟ: ✧･ﾟ: ✧･ﾟ: ✧･ﾟ: ✧･ﾟ: ✧･ﾟ: ✧･ﾟ: ✧･ﾟ: ✧･ﾟ: ✧･ﾟ: ✧･ﾟ: ✧･ﾟ: ✧･ﾟ:**
 
 ## Tool for working with nucleic acids sequences <a name="na"></a>
 The `run_dna_rna_tools` is designed to perform various operations with RNA and DNA sequences.
@@ -98,3 +112,5 @@ run_protein_tool('TKKKKTDDDA', 'calculate_pI') # '7.225555555555555'
 run_protein_tool('TATAQQQWRVVTDDDA', 'count_variant_rna') # '25165824'
 run_protein_tool('ASQRGARWQRMQR', 'QR', 'get_occurrences') # 'Number of occurrences: 3; indexes: 3, 9, 12'
 ```
+
+# 
