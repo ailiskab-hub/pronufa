@@ -2,7 +2,7 @@ import re
 
 GENE_NAME_PATTERN = r'(?<=\").*(?=\")'
 PATTERN_TO_NAME_GBK = r'(?<=/)\w+(?=\.gbk)'
-PATTERN_TO_NAME_BLAST = r'(?<=/)\w+(?=\.txt)'
+PATTERN_TO_NAME_BLAST = r'(?<=/)\w+\.txt'
 PATTERN_TO_SPLIT = r'\s{2,}'
 BEG = '>'
 END = '\n'
@@ -22,7 +22,7 @@ def convert_multiline_fasta_to_oneline(input_fasta, output_fasta=None):
                 curr_seq.append(line.strip())
 
     if not output_fasta:
-        output_fasta = input_fasta  # .replace('.fasta', '')
+        output_fasta = input_fasta.rstrip('.fasta')
 
     with open(f'{output_fasta}.fasta', mode='w') as new_file:
         for name, sequence in seqs.items():
@@ -72,7 +72,9 @@ def select_genes_from_gbk_to_fasta(input_gbk, genes, n_before=1, n_after=1, outp
             if genes_interests_finish > max_num:
                 genes_interests_finish = max_num
 
-            genes_interests.extend(genes_only[genes_interests_start:genes_interests_finish + 1])
+            genes_interests.extend(genes_only[genes_interests_start:gene_number])
+            genes_interests.extend(genes_only[gene_number + 1:genes_interests_finish + 1])
+
         genes_interests = list(dict.fromkeys(genes_interests))  # collect all genes of interest and left unique only
 
     if not output_fasta:  # make the filename
@@ -98,7 +100,7 @@ def change_fasta_start_pos(input_fasta, shift, output_fasta=None):
         changed_seq = ending + beginning
 
     if not output_fasta:
-        output_fasta = input_fasta  # .replace('.fasta', '')
+        output_fasta = input_fasta.rstrip('.fasta')
 
     with open(f'{output_fasta}.fasta', mode='w') as new_file:
         new_file.write(name)
@@ -110,10 +112,10 @@ def sort_by_alphabet(input_str):
 
 
 def parse_blast_output(input_file, output_file=None):
-    with open(path_blast) as blast_res:
+    with open(input_file) as blast_res:
         query_num = blast_res.read().count('Query #')
 
-    with open(path_blast) as blast_res:
+    with open(input_file) as blast_res:
         num = 0
         line = blast_res.readline()
         proteins_info = []
@@ -130,7 +132,7 @@ def parse_blast_output(input_file, output_file=None):
         proteins_info.sort(key=sort_by_alphabet)
 
     if not output_file:
-        output_file = re.search(PATTERN_TO_NAME_BLAST, input_file)[0] + '.txt'
+        output_file = re.search(PATTERN_TO_NAME_BLAST, input_file)[0]
 
     with open(output_file, mode='w') as new_file:
         for protein in proteins_info:
