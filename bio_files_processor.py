@@ -79,7 +79,7 @@ def get_gene_and_translation(lines: List[str]) -> Tuple[Dict[str, str], Dict[str
 def select_genes_from_gbk_to_fasta(input_gbk: str, genes: List[str], n_before: int = 1, n_after: int = 1,
                                    output_fasta: str = None) -> NoReturn:
     """
-    Extracts specific genes and their translations from a GenBank (GBK) file and saves them in a FASTA file.
+    Extracts neighbours of specific genes and their translations from a GenBank (GBK) file and saves them in a FASTA file.
 
     Args:
     - input_gbk (str): The path to the GenBank file to extract genes from.
@@ -149,7 +149,7 @@ def change_fasta_start_pos(input_fasta: str, shift: int, output_fasta: str = Non
 
 def parse_blast_output(input_file: str, output_file: str = None) -> NoReturn:
     """
-    Parses a BLAST output file to extract and sort information about significant protein alignments.
+    Parses a BLAST output file to extract and sort information about some proteins.
 
     Args:
     - input_file (str): The filename of the input BLAST output file in TXT format.
