@@ -1,9 +1,10 @@
 import re
 from typing import List, Tuple, NoReturn
 
+
 GENE_NAME_PATTERN = r'(?<=\").*(?=\")'
-PATTERN_TO_NAME_GBK = r'(?<=/)\w+(?=\.gbk)'
-PATTERN_TO_NAME_BLAST = r'(?<=/)\w+\.txt'
+PATTERN_TO_NAME_GBK = r'(?<=[\\/])\w+(?=\.gbk)'
+PATTERN_TO_NAME_BLAST = r'(?<=[\\/])\w+\.txt'
 PATTERN_TO_SPLIT = r'\s{2,}'
 BEG = '>'
 END = '\n'
