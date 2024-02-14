@@ -110,7 +110,7 @@ def calc_molecular_weight(seq: str) -> int:
     Return:
     - output (int): molecular weight value
     """
-    output = 0
+    result = 0
     for amino_acid in seq:
         output += DICT_MOLECULAR_MASS[amino_acid]
     return output - 18 * (len(seq) - 1)
