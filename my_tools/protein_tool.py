@@ -100,7 +100,7 @@ def count_point_mutations(seq1: str, seq2: str) -> int:
     return output
 
 
-def counting_molecular_weight(seq: str) -> int:
+def calc_molecular_weight(seq: str) -> int:
     """
     Counts the molecular mass of a protein sequence seq
 
