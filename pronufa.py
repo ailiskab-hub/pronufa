@@ -45,8 +45,7 @@ def run_fastq_tool(input_path: str, gc_bounds: Tuple[int, int] = (0, 100),
         q_seq = qualities[index]
         length = len(seq)
         mean_quality = fq.count_quality(q_seq) / length
-        if fq.check_length(min_length, length, max_length) and fq.count_check_gc(seq, min_gc, max_gc, length):
-            if mean_quality >= quality_threshold:
+        if fq.check_length(min_length, length, max_length) and fq.count_check_gc(seq, min_gc, max_gc, length) and fq.check_quality(q_seq, quality_threshold):
                 selected_seqs[name] = (seq, comment, q_seq)
 
     if not output_filename:
