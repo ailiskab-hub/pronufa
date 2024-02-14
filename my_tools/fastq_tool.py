@@ -1,6 +1,6 @@
+import os
 from collections import Counter
 from typing import Tuple, Dict, List, NoReturn
-import os
 
 
 END = '\n'
