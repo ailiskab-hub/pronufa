@@ -69,8 +69,7 @@ def run_dna_rna_tools(*args: str) -> str or list[str]:
     command = na.commands[action]
     for seq in sequences:
         if not (na.is_dna(seq) or na.is_rna(seq)):
-            print(f'Sequence {seq} is not RNA or DNA', file=sys.stderr)
-            sys.exit(1)
+            raise ValueError(f'Sequence {seq} is not RNA or DNA')
     return [command(seq) for seq in sequences] if len(sequences) > 1 else command(sequences[0])
 
 
