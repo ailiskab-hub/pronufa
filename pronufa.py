@@ -1,9 +1,10 @@
+import re
+import sys
+from typing import Tuple, Dict, NoReturn
+
 from my_tools import dna_rna_tools as na
 from my_tools import fastq_tool as fq
 from my_tools import protein_tool as pt
-from typing import Tuple, Dict, NoReturn
-import sys
-import re
 
 PATTERN_TO_NAME = r'(?<=/)\w+(?=\.fastq)'
 
