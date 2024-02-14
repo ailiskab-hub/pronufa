@@ -80,7 +80,8 @@ def classify_amino_acid(seq: str) -> str:
     return output
 
 
-def counting_point_mutations(seq1: str, seq2: str) -> int:
+def count_point_mutations(seq1: str, seq2: str) -> int:
+
     """
     Counts the number of mutations - amino acid substitutions in the sequence seq2 relative to seq1.
     Input sequences must have the same length.
