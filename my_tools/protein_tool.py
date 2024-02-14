@@ -231,7 +231,7 @@ def is_protein(seq: str) -> bool:
     Returns:
     - bool: True if the sequence is an amino acid sequence, False if it contains other symbols
     """
-    return True if set(seq) <= AA_SET else False
+    return set(seq) <= AA_SET 
 
 
 commands = {'calculate_amino_acid_percentages': calculate_amino_acid_percentages,
