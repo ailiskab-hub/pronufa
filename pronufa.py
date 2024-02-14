@@ -49,7 +49,7 @@ def run_fastq_tool(input_path: str, gc_bounds: Tuple[int, int] = (0, 100),
                 selected_seqs[name] = (seq, comment, q_seq)
 
     if not output_filename:
-        output_filename = re.search(PATTERN_TO_NAME, input_path)[0]
+        output_filename = os.basename(input_path)
     fq.write_file(selected_seqs, output_filename)
 
 
