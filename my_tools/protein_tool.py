@@ -168,7 +168,7 @@ def count_variant_rna(seq: str) -> int:
     Returns:
     - output (int): number of RNAs that can be a template for the synthesis of the entered sequence
     """
-    output = 1
+    result = 1
     for i in seq:
         output = output * NUMBER_CODONS[i]
     return output
