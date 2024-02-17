@@ -20,7 +20,7 @@ Bio_files_processor contains following functions:
 
 ## Brief description of the pronufa.py <a name="description_2"></a>
 This toolkit provides a set of classes and functions for working with biological sequences, including DNA, RNA, and amino acid sequences. It offers functionalities such as sequence type checking, complement generation, GC content calculation, sequence transcription, reverse transcription, and isoelectric point calculation for amino acid sequences.
-**✧･ﾟ: ✧･ﾟ: ✧･ﾟ: ✧･ﾟ: ✧･ﾟ: ✧･ﾟ: ✧･ﾟ: ✧･ﾟ: ✧･ﾟ: ✧･ﾟ: ✧･ﾟ: ✧･ﾟ: ✧･ﾟ: ✧･ﾟ: ✧･ﾟ: ✧･ﾟ: ✧･ﾟ: ✧･ﾟ: ✧･ﾟ:**
+
 
 
 ## The structure of repository <a name="structure"></a>
@@ -35,7 +35,7 @@ Directiry `my_tools` contains files `dna_rna_tools.py`,  `fastq_tool.py`,  `prot
        |- protein_tool.py
        |- fastq_tool.py
 ```
-**✧･ﾟ: ✧･ﾟ: ✧･ﾟ: ✧･ﾟ: ✧･ﾟ: ✧･ﾟ: ✧･ﾟ: ✧･ﾟ: ✧･ﾟ: ✧･ﾟ: ✧･ﾟ: ✧･ﾟ: ✧･ﾟ: ✧･ﾟ: ✧･ﾟ: ✧･ﾟ: ✧･ﾟ: ✧･ﾟ: ✧･ﾟ:**
+
 
 ## Tool for working with fastq-sequences <a name="fastq"></a>
 The function `filter_fastq`is designed to select sequences that satisfy the given conditions. The function takes the following arguments:
@@ -47,7 +47,7 @@ The function `filter_fastq`is designed to select sequences that satisfy the give
 
 The function write sequences that satisfy all conditions to the file
 
-**✧･ﾟ: ✧･ﾟ: ✧･ﾟ: ✧･ﾟ: ✧･ﾟ: ✧･ﾟ: ✧･ﾟ: ✧･ﾟ: ✧･ﾟ: ✧･ﾟ: ✧･ﾟ: ✧･ﾟ: ✧･ﾟ: ✧･ﾟ: ✧･ﾟ: ✧･ﾟ: ✧･ﾟ: ✧･ﾟ: ✧･ﾟ:**
+
 
 ## Classes for working with biological acids sequences <a name="na"></a>
 `DNASequence, RNASequence, AminoAcidSequence` are designed to represent biological sequences
