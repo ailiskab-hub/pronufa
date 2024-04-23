@@ -1,7 +1,10 @@
 import os
+import requests
 from Bio import SeqIO, SeqUtils
 from typing import Tuple, NoReturn
 from collections import Counter
+from dataclasses import dataclass
+from bs4 import BeautifulSoup
 
 AA_SET = set('FLIMVSPTAYHQNKDECWRG')
 DNA_NUCLEOTIDES = set('ATGC')
@@ -278,3 +281,60 @@ class AminoAcidSequence(TypeDefinedSequence):
                 pass
 
         return sum(summ_charge) / len(summ_charge)
+
+
+class ConnectionError(Exception):
+    pass
+
+
+@dataclass
+class GenscanOutput:
+    status: str
+    cds_list: list
+    exon_list: list
+
+
+def run_genscan(sequence=None, sequence_file=None, organism="Vertebrate", exon_cutoff=1.00, sequence_name=""):
+    site_url = 'http://hollywood.mit.edu'
+
+    form_data = {
+        "-o": organism,
+        "-e": exon_cutoff,
+        "-n": sequence_name,
+        "-p": "Predicted peptides only"
+    }
+    if not sequence:
+        with open(sequence_file, mode='rb') as file:
+            files = {"-u": file}
+            response = requests.post(site_url + "/cgi-bin/genscanw_py.cgi", data=form_data, files=files)
+    else:
+        form_data["-s"] = sequence
+        response = requests.post(site_url + "/cgi-bin/genscanw_py.cgi", data=form_data)
+
+    if not response.status_code == 200:
+        raise ConnectionError('Check Internet Connection')
+
+    soup = BeautifulSoup(response.text, "html.parser")
+
+    status = response.status_code
+
+
+    predictions = soup.find('pre').get_text()  # predictions = soup.find('pre').get_text().split('\n'*6)
+    ind = predictions.find('Predicted peptide sequence(s):')
+    cds = predictions[ind + 30:].strip().split('>')
+    cds_list = []
+    for i in cds[1:]:
+        cds_list.append(''.join(i.split("\n\n")[1:]))
+
+    predictions_splitted = predictions.split('\n' * 6)
+    ind_1st_tab = predictions_splitted[0].find('Predicted genes/exons:')
+    exones = predictions_splitted[0][ind_1st_tab + len('Predicted genes/exons:'):].strip().split('\n' * 4)[1:]
+    n = 0
+    exon_list = []
+    for i in exones:
+        for j in i.strip().split('\n' * 2):
+            curr = j.strip().split()
+            exon_list.append({'Number': n, 'Type': curr[1], 'Start': int(curr[3]), 'End': int(curr[4])})
+            n += 1
+
+    return GenscanOutput(status, cds_list, exon_list)
