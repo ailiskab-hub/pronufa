@@ -290,12 +290,36 @@ class ConnectionError(Exception):
 
 @dataclass
 class GenscanOutput:
+    """
+    Represents the output of the GenScan prediction.
+
+    Attributes:
+        status (str): The status of the prediction.
+        cds_list (List[str]): Predicted peptide sequences.
+        exon_list (List[Dict[str, Union[int, str]]]): Predicted exons with their attributes.
+    """
     status: str
     cds_list: list
     exon_list: list
 
 
 def run_genscan(sequence=None, sequence_file=None, organism="Vertebrate", exon_cutoff=1.00, sequence_name=""):
+    """
+    Runs GenScan prediction for the given sequence or sequence file.
+
+    Args:
+        sequence (str, optional): The DNA sequence to predict. Defaults to None.
+        sequence_file (str, optional): Path to the file containing the DNA sequence. Defaults to None.
+        organism (str, optional): The organism for which the prediction is made. Defaults to "Vertebrate".
+        exon_cutoff (float, optional): Exon cutoff value. Defaults to 1.00.
+        sequence_name (str, optional): Name of the sequence. Defaults to "".
+
+    Returns:
+        GenscanOutput: An object containing the prediction output.
+        
+    Raises:
+        ConnectionError: If unable to connect to the GenScan server.
+    """
     site_url = 'http://hollywood.mit.edu'
 
     form_data = {
