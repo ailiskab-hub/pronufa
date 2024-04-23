@@ -1,4 +1,5 @@
 import os
+import re
 import requests
 from Bio import SeqIO, SeqUtils
 from typing import Tuple, NoReturn
