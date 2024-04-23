@@ -186,28 +186,71 @@ def parse_blast_output(input_file: str, output_file: str = None) -> NoReturn:
 
 @dataclass
 class FastaRecord:
+    """
+    Represents a single FASTA record.
+
+    Attributes:
+        id (str): Identifier of the sequence.
+        seq (str): Sequence data.
+        description (str, optional): Description of the sequence. Defaults to "".
+    """
     id: str
     seq: str
     description: str = ""
 
 
 class OpenFasta:
+    """
+    Context manager for reading FASTA files.
+
+    Args:
+        name (str): Path to the FASTA file.
+    """
     def __init__(self, name):
         self.name = name
         self.file = None
 
     def __enter__(self):
+        """
+        Opens the FASTA file.
+
+        Returns:
+            OpenFasta: The OpenFasta object.
+        """
         self.file = open(self.name)
         return self
 
     def __exit__(self, exc_type, exc_val, exc_tb):
+        """
+        Closes the FASTA file when exiting the context.
+
+        Args:
+            exc_type: Exception type.
+            exc_val: Exception value.
+            exc_tb: Exception traceback.
+        """
         if self.file:
             self.file.close()
 
     def __iter__(self):
+        """
+        Iterates over the FASTA records in the file.
+
+        Returns:
+            OpenFasta: The OpenFasta object.
+        """
         return self
 
     def __next__(self):
+        """
+        Reads the next FASTA record.
+
+        Returns:
+            FastaRecord: The next FASTA record.
+
+        Raises:
+            StopIteration: When all records have been read.
+        """
         record = self.read_record()
 
         for rec in record:
@@ -217,6 +260,12 @@ class OpenFasta:
 
 
     def read_record(self):
+        """
+        Reads a single FASTA record from the file.
+
+        Yields:
+            FastaRecord: The next FASTA record.
+        """
         pattern = r'(?<=\>)[A-Z\d\.]+?(?=\s)'
         seq_id = None
         seq_description = ''
@@ -241,6 +290,12 @@ class OpenFasta:
         yield FastaRecord(seq_id, curr_seq, seq_description) if seq_id is not None else None
 
     def read_records(self):
+        """
+        Reads all FASTA records from the file.
+
+        Returns:
+            list: List of all FASTA records in the file.
+        """
         recs = []
         rec = self.read_record()
         for i in rec:
