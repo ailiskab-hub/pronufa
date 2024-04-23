@@ -338,3 +338,67 @@ def run_genscan(sequence=None, sequence_file=None, organism="Vertebrate", exon_c
             n += 1
 
     return GenscanOutput(status, cds_list, exon_list)
+
+
+@dataclass
+class FastaRecord:
+    id: str
+    seq: str
+    description: str = ""
+
+
+class OpenFasta:
+    def __init__(self, name):
+        self.name = name
+        self.file = None
+
+    def __enter__(self):
+        self.file = open(self.name)
+        return self
+
+    def __exit__(self, exc_type, exc_val, exc_tb):
+        if self.file:
+            self.file.close()
+
+    def __iter__(self):
+        return self
+
+    def __next__(self):
+        record = self.read_record()
+
+        for rec in record:
+            if rec is None:
+                raise StopIteration
+            return rec
+
+
+    def read_record(self):
+        pattern = r'(?<=\>)[A-Z\d\.]+?(?=\s)'
+        seq_id = None
+        seq_description = ''
+        curr_seq = ''
+
+
+        for line in self.file:
+            line = line.strip()
+            match = re.search(pattern, line)
+            if match is not None:
+                if seq_id is not None:
+                    res = FastaRecord(seq_id, curr_seq, seq_description)
+
+                    yield res
+
+                seq_id = match[0]
+                seq_description = line[match.end()+1:]
+                curr_seq = ''
+
+            else:
+                curr_seq += line
+        yield FastaRecord(seq_id, curr_seq, seq_description) if seq_id is not None else None
+
+    def read_records(self):
+        recs = []
+        rec = self.read_record()
+        for i in rec:
+            recs.append(i)
+        return recs
