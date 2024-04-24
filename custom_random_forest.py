@@ -2,8 +2,6 @@ import numpy as np
 from sklearn.base import BaseEstimator
 from sklearn.tree import DecisionTreeClassifier
 from multiprocessing import Pool
-from itertools import repeat
-
 
 
 def fit_tree(X, y, i, max_features, max_depth, random_state):
@@ -19,10 +17,10 @@ def fit_tree(X, y, i, max_features, max_depth, random_state):
     tree = DecisionTreeClassifier(max_depth=max_depth, random_state=random_state)
 
     tree.fit(X_bs[:, feat_ids], y_bs)
-    return tree
+    return tree, feat_ids
 
 
-def predict_proba_tree(X, i, feat_ids, tree):
+def predict_proba_tree(X, feat_ids, tree):
     proba = tree.predict_proba(X[:, feat_ids])
     return proba
 
@@ -41,19 +39,20 @@ class RandomForestClassifierCustom(BaseEstimator):
 
 
     def fit(self, X, y, n_jobs=1):
-        data = np.hstack((X, y.reshape(-1, 1)))
+        self.classes_ = sorted(np.unique(y))
         
         with Pool(n_jobs) as pool:
-            self.trees = pool.starmap(fit_tree, [(X, y, i, self.max_features, self.max_depth, self.random_state) for i in range(self.n_estimators)])
-        
-        self.feat_ids_by_tree = [np.random.choice(X.shape[1], self.max_features, replace=False) for _ in range(self.n_estimators)]
-
+            poolup = list(pool.starmap(fit_tree, [(X, y, i, self.max_features, self.max_depth, self.random_state) for i in range(self.n_estimators)]))
+            for i in poolup:
+                self.trees.append(i[0])
+                self.feat_ids_by_tree.append(i[1])
+            
         return self
 
     def predict_proba(self, X, n_jobs=1):
     
         with Pool(n_jobs) as pool:
-            probas = pool.starmap(predict_proba_tree, [(X, i, self.feat_ids_by_tree[i], self.trees[i]) for i in range(len(self.trees))])
+            probas = pool.starmap(predict_proba_tree, [(X, self.feat_ids_by_tree[i], self.trees[i]) for i in range(len(self.trees))])
 
         avg_proba = np.mean(probas, axis=0)
         return avg_proba
